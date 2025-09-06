@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Review Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='review.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Flipkart Review Analyzer</h1>
+        
+        <!-- Input Box -->
+        <form action="/get_reviews" method="POST" class="search-box">
+            <input type="text" name="product_link" placeholder="Enter Flipkart Product Link..." required>
+            <button type="submit">Get Reviews</button>
+        </form>
+
+        {% if product_name %}
+        <!-- Product Info -->
+        <div class="product-info">
+            <img src="{{ product_image }}" alt="Product Image">
+            <h2>{{ product_name }}</h2>
+        </div>
+
+        <!-- Reviews Table -->
+        <div class="review-section">
+            <h3>📝 Customer Reviews (Total Reviews are {{reviews | length}})</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Heading</th>
+                        <th>Rating ⭐</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.user_name }}</td>
+                        <td>{{ review.heading }}</td>
+                        <td>{{ review.rating }}</td>
+                        <td>{{ review.review }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+
+        {% endif %}
+    </div>
+
+
+  
+</body>
+</html>
